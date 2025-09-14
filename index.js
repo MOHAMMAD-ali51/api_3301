@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const router = require('./router');
 const connectDB = require('./config/db');
 //localhost:3000/
+app.use(express.json());
 app.use(router);
 //database connection
 connectDB()
