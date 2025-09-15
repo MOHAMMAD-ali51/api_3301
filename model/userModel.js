@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: [true,'password is required'],
         maxlegnth :[20, "password should not be more than 20 characters"],
-        minlegnth :[6, "password should not be less than 6 characters"],
+        //minlegnth :[6, "password should not be less than 6 characters"],
         trim : true
     },
     profilePic : {
@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum : ['user', 'admin'],
         default : 'user'
+    },
+    isverified : {
+        type: Boolean,
+        default : false
     }
 }, {timestamps: true});
 
