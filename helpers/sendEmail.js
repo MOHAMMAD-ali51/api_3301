@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-async  function sendEmail(email){
+async  function sendEmail(email, otp) {
     const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -12,7 +12,7 @@ async  function sendEmail(email){
     to: email,
     subject: "Email verification code", // Subject line
     text: "Hello world?", // plain‑text body
-    html: "<b>Your verification code is 212845</b>", // HTML body
+    html: `<b>Your verification code is ${otp}</b>`, // HTML body
   });
 }
 module.exports = sendEmail;

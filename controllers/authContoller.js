@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const signupController =async (req, res) => {
     let { username, email, password } = req.body;
     try {
+        const otp = randomOtp();
         bcrypt.hash(password, 10,async function(err, hash) {
             if(err){
                 return res.status(500).json({
@@ -23,9 +24,16 @@ const signupController =async (req, res) => {
                 username,
                 email,
                 password : hash,
+                otp
             });
             await user.save();
-            sendEmail(email);
+            sendEmail(email,otp );
+            setTimeout(async() => {
+                await userModel.findOneAndUpdate({email},{otp:null}).then(()=>{
+                    console.log(email,"otp deleted successfully");
+                })
+            user.save();
+            },60000)
             return res.status(201).json({
                 success: true,
                  message: 'User registered successfully',
@@ -43,7 +51,7 @@ const signupController =async (req, res) => {
 }; // Closing brace added for signupController
 
 const signinContoller = (req, res) => {
-    randomOtp();
+    
     res.send('login user route');
 }
 module.exports = { signupController, signinContoller };
